@@ -38,7 +38,8 @@ def SendMessageToClient(request):
                                  "DESC": "Message Has been SENT"}
                 return JsonResponse(jsonresponder, JSONEncoder)
             else:
-                jsonresponder = {"stat": "NOK", "Code": "4", , "DESC": "Token is Wrong"}
+                jsonresponder = {"stat": "NOK",
+                                 "Code": "4", "DESC": "Token is Wrong"}
                 return JsonResponse(jsonresponder, JSONEncoder)
 
 
@@ -46,7 +47,7 @@ def SendMessageToClient(request):
 # This method will login a client to the serve , phone or ardino , both of them need login
 def Login(request):
     if 'logedin' in request.session:
-        jsonresponder = {"stat": "NOK", "Code": "5", , "DESC": "Already Loged In",
+        jsonresponder = {"stat": "NOK", "Code": "5", "DESC": "Already Loged In",
                          "Current User": request.session['user']}
         return JsonResponse(jsonresponder, JSONEncoder)
     if 'username' in request.POST:

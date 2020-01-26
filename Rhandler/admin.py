@@ -4,4 +4,4 @@ from Rhandler import models
 
 admin.site.register(models.UserInfo)
 admin.site.register(models.Client)
-admin.site.register(models.Message)
+admin.site.register(models.MessageFromDevice)
