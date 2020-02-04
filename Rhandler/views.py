@@ -46,10 +46,10 @@ def SendMessageToClient(request):
 @csrf_exempt
 # This method will login a client to the serve , phone or ardino , both of them need login
 def Login(request):
-    if 'logedin' in request.session:
-        jsonresponder = {"stat": "NOK", "Code": "5", "DESC": "Already Loged In",
-                         "Current User": request.session['user']}
-        return JsonResponse(jsonresponder, JSONEncoder)
+    # if 'logedin' in request.session:
+    #     jsonresponder = {"stat": "NOK", "Code": "5", "DESC": "Already Loged In",
+    #                      "Current User": request.session['user']}
+    #     return JsonResponse(jsonresponder, JSONEncoder)
     if 'username' in request.POST:
         this_username = request.POST['username']
     else:
@@ -85,6 +85,7 @@ def Login(request):
 @csrf_exempt
 # This method will be launched from Arduino and check if any new message is avaiable or not .
 def CheckNewMessageForClient(request):
+    return JsonResponse(request.POST, JSONEncoder)
     token = request.POST['token']
     theUser = UserInfo.objects.get(token=token)
     clientnumber = request.POST['client']
