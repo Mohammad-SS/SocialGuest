@@ -20,7 +20,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sendMessage/', RV.SendMessageToClient),
     path('login/', RV.Login),
-    path('check/', RV.CheckNewMessageForClient)
+    path('check/', RV.CheckNewMessageForClient),
+    path('configs/', RV.Configs)
+
 
 
 ]

@@ -69,6 +69,7 @@ def Login(request):
             request.session['logedin'] = True
             request.session['usid'] = theUser.id
             request.session['user'] = theUser.userName
+
             jsonresponder = {"stat": "OK", "Code": "1", "LOGEDIN": "TRUE"}
         else:
             request.session['logedin'] = False
@@ -83,9 +84,27 @@ def Login(request):
 
 
 @csrf_exempt
+def Configs(request):
+    if 'logedin' not in request.session:
+        jsonresponder = {"stat": "NOK", "Code": "2",
+                         "DESC": "PLEAST LOGIN FIRST"}
+        return JsonResponse(jsonresponder, JSONEncoder)
+    else:
+        if request.session['logedin'] == True:
+            theUser = UserInfo.objects.get(pk=request.session['usid'])
+            if request.POST['token'] == theUser.token:
+                jsonresponder = {"stat": "OK", "Code": "1",
+                                 "Configs": theUser.configs}
+                return JsonResponse(jsonresponder, JSONEncoder)
+            else:
+                jsonresponder = {"stat": "NOK", "Code": "4",
+                                 "DESC": "Token is Wrong"}
+                return JsonResponse(jsonresponder, JSONEncoder)
+
+
+@csrf_exempt
 # This method will be launched from Arduino and check if any new message is avaiable or not .
 def CheckNewMessageForClient(request):
-    return JsonResponse(request.POST, JSONEncoder)
     token = request.POST['token']
     theUser = UserInfo.objects.get(token=token)
     clientnumber = request.POST['client']

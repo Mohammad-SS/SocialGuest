@@ -47,6 +47,7 @@ class UserInfo(models.Model):
     token = models.CharField(max_length=48, null=False)
     projectId = models.CharField(max_length=11)
     password = models.CharField(max_length=24)
+    configs = models.TextField(default="")
 
     def __str__(self):
         return "{} - {} ".format(self.userName, self.projectId)
